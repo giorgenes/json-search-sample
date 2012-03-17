@@ -9,8 +9,8 @@ testing.
 
 == Usage
 
-$> bundle install
-$> bundle exec guard
+  $> bundle install
+  $> bundle exec guard
 
 Then edit example.rb and test/example_test.rb and
 create your solution/tests respectively.
