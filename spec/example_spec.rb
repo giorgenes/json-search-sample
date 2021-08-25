@@ -4,9 +4,10 @@ require 'example'
 require 'rspec'
 
 describe MyProblem do
-  describe '#matches?' do
-    it 'matches' do
-      expect(MyProblem.new(2).matches?('124A')).not_to be_nil
-    end
+  context '#matches?' do
+
+    subject { MyProblem.new(2).matches?('124A') }
+
+    it { is_expected.not_to be_nil }
   end
 end
