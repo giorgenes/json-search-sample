@@ -1,5 +1,13 @@
 {
     "editor.formatOnSave": true,
     "ruby.format": "rubocop",
-    "ruby.useBundler": true
+    "ruby.useBundler": true,
+    "ruby.lint": {
+        "rubocop": {
+            "useBundler": true // enable rubocop via bundler
+        },
+        "reek": {
+            "useBundler": true // enable reek via bundler
+        }
+    },
 }
