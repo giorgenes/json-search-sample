@@ -1,4 +1,3 @@
-
 tasks:
   - init: bundle install # runs during prebuild
     command: echo 'start script'
@@ -11,3 +10,4 @@ ports:
 vscode:
   extensions:
     - rebornix.ruby
+    - wingrunr21.vscode-ruby

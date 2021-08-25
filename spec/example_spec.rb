@@ -5,6 +5,9 @@ require 'rspec'
 
 describe MyProblem do
   describe '#matches?' do
-    MyProblem.new(2).matches?('124A').should_not == nil
+    it 'matches' do
+          expect(MyProblem.new(2).matches?('124A')).not_to be_nil
+    end
   end
 end
+

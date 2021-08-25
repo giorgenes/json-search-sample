@@ -4,4 +4,5 @@ gem 'guard'
 gem 'guard-test'
 gem 'rspec'
 gem 'guard-rspec'
+gem 'rubocop', require: false
 
