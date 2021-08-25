@@ -1,4 +1,7 @@
-== The ultimate ruby interview booster
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/giorgenes/interview-booster)
+
+
+## The ultimate ruby interview booster
 
 Use this to speed up your small interview tasks
 by quickly setting up guard and test:unit
@@ -7,7 +10,7 @@ to test your interview problems.
 You can use this in contrast to traditional stdin/stdout
 testing.
 
-== Usage
+## Usage
 
   $> bundle install
   $> bundle exec guard
