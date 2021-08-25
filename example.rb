@@ -1,6 +1,4 @@
-#!/usr/bin/env ruby
-
-
+# Sample class
 class MyProblem
   def matches?(line)
     line =~ /[0-9]+/
@@ -10,5 +8,3 @@ class MyProblem
     puts foo
   end
 end
-
-
