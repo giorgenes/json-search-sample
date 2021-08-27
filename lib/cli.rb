@@ -7,21 +7,15 @@ class CLI
     def execute
         show_greeting
 
-        begin
-            loop do
-                show_prompt
-                cmd = @in.readline.strip
+        loop do
+            cmd = show_prompt('> ', ['1', '2'])
 
-                if cmd == 'quit'
-                    @out.puts "Goodbye!"
-                    return
-                end
+            break if cmd.nil?
 
-                handle_cmd(cmd)
-            end
-        rescue EOFError
-            # You've reached the end. Handle it.
+            handle_cmd(cmd)
         end
+
+        @out.puts "Goodbye!"
     end
 
     private
@@ -29,7 +23,7 @@ class CLI
     def handle_cmd(cmd)
         case cmd
         when '1'
-            
+            show_prompt("Select 1) Users or 2) Tickets: ")
         when '2'
             
         else
@@ -39,7 +33,7 @@ class CLI
 
     def show_greeting
         @out.puts "Welcome to Zendesk search"
-        @out.puts "Type 'quit' to exist at any time. Press 'ENTER' to continue"
+        @out.puts "Type 'quit' to exit at any time. Press 'ENTER' to continue"
         @out.puts
         @out.puts "\tSelect search options:"
         @out.puts "\t\t* Press 1 to search Zendesk"
@@ -48,7 +42,26 @@ class CLI
         @out.puts
     end
 
-    def show_prompt
-        @out.print "> "
+    def show_prompt(prompt, options)
+         begin
+            loop do
+                cmd = @in.readline.strip
+
+                if options.include?(cmd)
+                    return cmd
+                end
+
+                if cmd == 'quit'
+                    return nil
+                end
+
+                @out.puts "Invalid command"
+            end
+        rescue EOFError
+            # You've reached the end. Handle it.
+        end
+
+
+        nil
     end
 end
