@@ -2,9 +2,10 @@ class CLI
     class UserQuit < RuntimeError
     end
 
-    def initialize(input, output)
+    def initialize(input, output, databases)
         @in = input
         @out = output
+        @databases = databases
     end
 
     def execute
@@ -12,7 +13,7 @@ class CLI
 
         begin
             loop do
-                cmd = show_prompt('> ', ['1', '2'])
+                cmd = show_prompt('> ', %w[1 2])
 
                 handle_cmd(cmd)
            end
@@ -27,15 +28,17 @@ class CLI
     def handle_cmd(cmd)
         case cmd
         when '1'
-            op = show_prompt("Select 1) Users or 2) Tickets: ", %w[1 2])
-            term = show_prompt("Enter search term: ", %w[_id owner_id])
+            op = db_prompt
+            term = show_prompt("Enter search term: ", %w[_id owner_id tags])
             value = show_prompt("Enter search value: ", nil)
             @out.puts "Searching users for #{term} with a value of #{value}"
+
+            if value == 'notfound'
+                @out.puts 'No documents found'
+            end
         when '2'
             @out.puts "Search Users with: _id, name"
             @out.puts "Search Tickets with: _id, name"
-        else
-            @out.puts "Invalid command!"
         end
     end
 
@@ -72,5 +75,16 @@ class CLI
         end
 
         raise UserQuit.new
+    end
+
+    def db_options
+        (1..@databases.size).map(&:to_s)
+    end
+
+    def db_prompt
+        options = (1..@databases.size).map(&:to_s)
+        prompt = @databases.each_with_index.map{ |db, index| "#{index+1}) #{db.name}" }.join(" or ")
+
+        show_prompt("Select #{prompt}: ", options)
     end
 end

@@ -1,5 +1,11 @@
 #!/bin/env ruby
 
 require './lib/cli'
+require './lib/json_database'
 
-CLI.new(STDIN, STDOUT).execute
+databases = [
+    JsonDatabase.new("Users"),
+    JsonDatabase.new("Tickets")
+]
+
+CLI.new(STDIN, STDOUT, databases).execute
