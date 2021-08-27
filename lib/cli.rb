@@ -61,7 +61,6 @@ class CLI
             # You've reached the end. Handle it.
         end
 
-
         nil
     end
 end
