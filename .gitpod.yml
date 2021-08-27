@@ -1,11 +1,12 @@
 tasks:
-  - init: bash -ic "bundle install" # runs during prebuild
+  - init: >
+      bash -ic "bundle install"
+      gp sync-done bundle
+    name: guard
     command: bash -ic "bundle exec guard"
-
-# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-ports:
-  - port: 3000
-    onOpen: open-preview
+  - name: CLI
+    init: gp sync-await bundle
+    command: bash -ic "./main.rb"
 
 vscode:
   extensions:
