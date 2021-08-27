@@ -1,4 +1,7 @@
 class CLI
+    class UserQuit < RuntimeError
+    end
+
     def initialize(input, output)
         @in = input
         @out = output
@@ -7,14 +10,15 @@ class CLI
     def execute
         show_greeting
 
-        loop do
-            cmd = show_prompt('> ', ['1', '2'])
+        begin
+            loop do
+                cmd = show_prompt('> ', ['1', '2'])
 
-            break if cmd.nil?
-
-            handle_cmd(cmd)
+                handle_cmd(cmd)
+           end
+        rescue UserQuit => e
         end
-
+     
         @out.puts "Goodbye!"
     end
 
@@ -23,9 +27,13 @@ class CLI
     def handle_cmd(cmd)
         case cmd
         when '1'
-            show_prompt("Select 1) Users or 2) Tickets: ")
+            op = show_prompt("Select 1) Users or 2) Tickets: ", %w[1 2])
+            term = show_prompt("Enter search term: ", %w[_id owner_id])
+            value = show_prompt("Enter search value: ", nil)
+            @out.puts "Searching users for #{term} with a value of #{value}"
         when '2'
-            
+            @out.puts "Search Users with: _id, name"
+            @out.puts "Search Tickets with: _id, name"
         else
             @out.puts "Invalid command!"
         end
@@ -42,17 +50,19 @@ class CLI
         @out.puts
     end
 
+    # options = list of accepted answers or nil for any
     def show_prompt(prompt, options)
          begin
             loop do
+                @out.print prompt
                 cmd = @in.readline.strip
 
-                if options.include?(cmd)
+                if options.nil? || options.include?(cmd)
                     return cmd
                 end
 
                 if cmd == 'quit'
-                    return nil
+                    raise UserQuit.new
                 end
 
                 @out.puts "Invalid command"
@@ -61,6 +71,6 @@ class CLI
             # You've reached the end. Handle it.
         end
 
-        nil
+        raise UserQuit.new
     end
 end
