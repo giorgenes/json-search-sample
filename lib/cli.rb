@@ -5,10 +5,11 @@ class CLI
     end
 
     def execute
-        show_prompt
+        show_greeting
 
         begin
             loop do
+                show_prompt
                 cmd = @in.readline.strip
 
                 if cmd == 'quit'
@@ -36,12 +37,18 @@ class CLI
         end
     end
 
-    def show_prompt
+    def show_greeting
         @out.puts "Welcome to Zendesk search"
         @out.puts "Type 'quit' to exist at any time. Press 'ENTER' to continue"
+        @out.puts
         @out.puts "\tSelect search options:"
         @out.puts "\t\t* Press 1 to search Zendesk"
         @out.puts "\t\t* Press 2 to view a list of searcheable fields"
         @out.puts "\t\t* Type 'quit' to exist"
+        @out.puts
+    end
+
+    def show_prompt
+        @out.print "> "
     end
 end
