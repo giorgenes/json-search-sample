@@ -21,7 +21,7 @@ describe CLI do
     it "finds the documents" do
       docs.each do |doc|
         doc.each_pair do |k,v|
-          expect(subject).to match("#{k}.+#{v}")
+          expect(subject).to match("#{k}.+=.+#{v}")
         end
       end
     end
