@@ -1,7 +1,7 @@
 {
     "editor.formatOnSave": true,
     "ruby.format": "rufo",
-    "ruby.useBundler": true,
+    "ruby.useBundler": false,
     "ruby.lint": {
         "rufo": {
             "useBundler": false // enable rufo via bundler
@@ -13,4 +13,5 @@
             "useBundler": true // enable reek via bundler
         }
     },
+    "ruby.useLanguageServer": true,
 }
