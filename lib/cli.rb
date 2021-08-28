@@ -2,7 +2,7 @@ class CLI
     class UserQuit < RuntimeError
     end
 
-    def initialize(input, output, databases)
+    def initialize(input: STDIN, output: STDOUT, databases: nil)
         @in = input
         @out = output
         @databases = databases
@@ -28,18 +28,31 @@ class CLI
     def handle_cmd(cmd)
         case cmd
         when '1'
-            op = db_prompt
+            db = db_prompt
             term = show_prompt("Enter search term: ", %w[_id owner_id tags])
             value = show_prompt("Enter search value: ", nil)
             @out.puts "Searching users for #{term} with a value of #{value}"
 
-            if value == 'notfound'
+            docs = db.find_by(term, value)
+
+            if docs.empty?
                 @out.puts 'No documents found'
+            else
+                docs.each do |doc|
+                    print_doc(doc)
+                end
             end
         when '2'
-            @out.puts "Search Users with: _id, name"
-            @out.puts "Search Tickets with: _id, name"
+            @databases.each do |db|
+                @out.puts "Search #{db.name} with: #{db.fields.join(', ')}"
+            end
         end
+    end
+
+    def print_doc(doc)
+       doc.each_pair do |k,v|
+            @out.puts("#{k} = #{v}")
+       end
     end
 
     def show_greeting
@@ -85,6 +98,8 @@ class CLI
         options = (1..@databases.size).map(&:to_s)
         prompt = @databases.each_with_index.map{ |db, index| "#{index+1}) #{db.name}" }.join(" or ")
 
-        show_prompt("Select #{prompt}: ", options)
+        op = show_prompt("Select #{prompt}: ", options)
+
+        @databases[op.to_i - 1]
     end
 end

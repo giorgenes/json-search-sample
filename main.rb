@@ -8,4 +8,4 @@ databases = [
     JsonDatabase.new("Tickets")
 ]
 
-CLI.new(STDIN, STDOUT, databases).execute
+CLI.new(databases: databases).execute
