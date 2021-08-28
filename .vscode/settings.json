@@ -1,11 +1,8 @@
 {
     "editor.formatOnSave": true,
-    "ruby.format": "rufo",
-    "ruby.useBundler": false,
+    "ruby.format": "rubocop",
+    "ruby.useBundler": true,
     "ruby.lint": {
-        "rufo": {
-            "useBundler": false // enable rufo via bundler
-        },
         "rubocop": {
             "useBundler": true // enable rubocop via bundler
         },

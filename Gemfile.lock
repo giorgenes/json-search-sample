@@ -23,6 +23,7 @@ GEM
     guard-test (2.0.8)
       guard-compat (~> 1.2)
       test-unit (~> 3.0)
+    kwalify (0.7.2)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -43,6 +44,10 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    reek (6.0.6)
+      kwalify (~> 0.7.0)
+      parser (~> 3.0.0)
+      rainbow (>= 2.0, < 4.0)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rspec (3.10.0)
@@ -70,6 +75,7 @@ GEM
     rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
+    rufo (0.13.0)
     shellany (0.0.1)
     test-unit (3.4.4)
       power_assert
@@ -83,8 +89,10 @@ DEPENDENCIES
   guard
   guard-rspec
   guard-test
+  reek
   rspec
   rubocop
+  rufo
 
 BUNDLED WITH
-   2.2.17
+   2.2.25
