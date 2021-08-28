@@ -1,6 +1,6 @@
 tasks:
   - init: >
-      bash -ic "bundle install"
+      bash -ic "bundle install && gem install rufo"
       gp sync-done bundle
     name: guard
     command: bash -ic "bundle exec guard"

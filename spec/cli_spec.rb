@@ -104,8 +104,8 @@ describe CLI do
               let(:doc1) { {_id: '71' } }
               let(:doc2) { {_id: '72' } }
               let(:docs) { [doc1, doc2] }
-      
               
+
               it_behaves_like 'finds document'
             end
             
