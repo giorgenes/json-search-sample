@@ -11,13 +11,13 @@
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "Guardfile"
+
 Metrics/BlockLength:
   Exclude:
     - "Rakefile"
     - "**/*.rake"
     - "spec/*.rb"
-
-AllCops:
-  NewCops: enable
-  Exclude:
-    - "Guardfile"

@@ -39,9 +39,7 @@ describe CLI do
     end
 
     it 'displays the initial prompt' do
-      expect(subject).to match('Welcome to Zendesk')
-        .and match('Press 1')
-        .and match('Press 2')
+      expect(subject).to match('Welcome to Zendesk').and match('Press 1').and match('Press 2')
     end
 
     context 'with quit command' do
