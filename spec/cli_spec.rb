@@ -270,7 +270,7 @@ describe CLI do
       end
     end
 
-    # test general output
+    # TODO: test general output
 
   end
 end

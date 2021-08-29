@@ -8,5 +8,6 @@ group :test, :development do
     gem 'rspec'
     gem 'rufo'
     gem 'reek'
+    gem 'standardrb'
 end
 

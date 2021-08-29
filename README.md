@@ -9,8 +9,7 @@
 
 Tests can be executed by simply running `rspec` in the terminal.
 
-## Caveats
+## Caveats and Assumptions
 
 - I'm not handling data types. Types are converted to string for simplicity to avoid having to figure out the data
   and map between user input and the database. Also to prevent having different types of indexes.
-  
