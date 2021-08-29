@@ -4,9 +4,6 @@ tasks:
       gp sync-done bundle
     name: guard
     command: bash -ic "bundle exec guard"
-  - name: CLI
-    init: gp sync-await bundle
-    command: bash -ic "./main.rb"
 
 vscode:
   extensions:
