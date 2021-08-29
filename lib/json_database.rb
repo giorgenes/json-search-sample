@@ -1,4 +1,4 @@
-require "byebug"
+require "json"
 
 class JsonDatabase
   attr_reader :name, :display_field, :indexes
@@ -47,6 +47,12 @@ class JsonDatabase
   end
 
   def find_by(field, value)
+    string_find_by(field, value.to_s)
+  end
+
+  private
+
+  def string_find_by(field, value)
     index = @indexes[field]
     raise "field not found" unless index
 

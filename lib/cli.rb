@@ -30,7 +30,7 @@ class CLI
     case cmd
     when "1"
       db = db_prompt
-      term = show_prompt("Enter search term: ", %w[_id owner_id tags])
+      term = show_prompt("Enter search term: ", db.fields)
       value = show_prompt("Enter search value: ", nil)
       @out.puts "Searching users for #{term} with a value of #{value}"
 
@@ -70,7 +70,10 @@ class CLI
     related_docs = related_db.find_by(field, doc[key])
 
     if related_docs.any?
-      @out.puts "#{related_db}: #{related_docs.map { |rd| rd[related_db.display_field] }.join(", ")}"
+      @out.puts "#{related_db.name}: "
+      related_docs.each do |related_doc|
+        @out.puts "\t-> #{related_doc[related_db.display_field]}"
+      end
     end
   end
 
