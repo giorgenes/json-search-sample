@@ -1,5 +1,6 @@
 require "json"
 
+# Represents a json database file
 class JsonDatabase
   attr_reader :name, :display_field, :indexes
 
@@ -20,7 +21,8 @@ class JsonDatabase
   def load_json_file(path)
     add_docs(JSON.parse(File.read(path)))
   end
-
+  
+  # Adds a list of documents and sort the indexes
   def add_docs(docs)
     docs.each do |doc|
       add_doc(doc)
@@ -31,6 +33,7 @@ class JsonDatabase
     end
   end
 
+  # Add document to the appropriate index
   def add_doc(doc)
     doc.each_pair do |k, v|
       @indexes[k] ||= []
@@ -52,10 +55,12 @@ class JsonDatabase
 
   private
 
+  # Find the value in the field index and returns the found documents
   def string_find_by(field, value)
     index = @indexes[field]
     raise "field not found" unless index
 
+    # search the index
     pos = index.bsearch_index { |item| value <=> item.value }
 
     # not found
