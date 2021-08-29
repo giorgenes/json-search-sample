@@ -5,7 +5,22 @@
 
 # Design
 
+The application has 3 main components depicted in the class diagram below.
+  - [main.rb](main.rb): simple ruby executable that loads the json database files and pass it on to the CLI class
+  - [CLI](lib/cli.rb) class: Handles all the user interaction and output and delegates the searches to the `JsonDatabase` instances.
+  - [JsonDatabase](lib/json_database.rb): Handles the logic of loading a single json database, indexing and searching it.
+
 ![](https://yuml.me/04156771.svg)
+
+
+### Json Database
+
+#### Indexing
+Indexing works by breaking down each field into its unique index. An index is sorted list of values which points to the actual document (`[value, document]`).
+
+#### Searching
+
+Searching is done by simply doing a binary search on the speficic field index, then collecting all elements around it (an index may have multiple duplicate keys pointing to different documents).
 
 
 # Running and Setup
