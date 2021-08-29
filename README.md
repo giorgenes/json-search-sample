@@ -25,14 +25,14 @@ Searching is done by simply doing a binary search on the speficic field index, t
 
 # Running and Setup
 
-## Running on Gitpod (Preferred)
+## Running on Gitpod (Recommended)
 
 The environment is ready to test and run from the gitpod instance (button above). All you need to test is click the button and sign in to Gitpod
 using your github account (it's free).
 
-To run, simply type `./main.rb` on the terminal (TIP: There's already a tab running the CLI that you can simply jump in right away).
+To run, simply type `./main.rb` on the terminal.
 
-## Running from Docker (Bonus)
+## Running from Docker (If you have docker installed already)
 
 Build directly from github then run with the commands below:
 
@@ -41,7 +41,7 @@ docker build -t jsonsearch https://github.com/giorgenes/json-search-sample.git
 docker run -ti jsonsearch
 ```
 
-## Running Locally (If you like wasting time)
+## Running Locally
 
 The CLI application is built on ruby `2.7.3`. To run, make sure you have ruby installed and run the following commands to setup:
 

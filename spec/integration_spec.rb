@@ -12,7 +12,7 @@ describe "the cli" do
       begin
         File.read(output_path)
       rescue
-        ""
+        "!!! not found !!! set `save_output = true` to save output"
       end
     }
 

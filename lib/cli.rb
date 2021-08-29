@@ -9,6 +9,7 @@ class CLI
     @relations = relations
   end
 
+  # Execute the CLI until the user quits or closes STDIN
   def execute
     show_greeting
 
@@ -27,6 +28,7 @@ class CLI
 
   private
 
+  # handles the top level commands (1 = Search, 2 = Show fields)
   def handle_cmd(cmd)
     case cmd
     when "1"
@@ -56,6 +58,7 @@ class CLI
     @databases.find { |db| db.name == name }
   end
 
+  # Given a doc, find the associated records on the other database and print it
   def find_and_print_related(db, doc, max_key_size)
     rel = @relations[db.name]
     return unless rel
@@ -103,6 +106,7 @@ class CLI
     @out.puts
   end
 
+  # Show the prompt, read the input and check for the accepted options
   # options = list of accepted answers or nil for any
   def show_prompt(prompt, options)
     begin
@@ -131,6 +135,7 @@ class CLI
     (1..@databases.size).map(&:to_s)
   end
 
+  # Show the list of databases to search with the numbers
   def db_prompt
     options = (1..@databases.size).map(&:to_s)
     prompt = @databases.each_with_index.map { |db, index| "#{index + 1}) #{db.name}" }.join(" or ")
