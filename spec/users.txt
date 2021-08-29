@@ -1,0 +1,17 @@
+Welcome to Zendesk search
+Type 'quit' to exit at any time. Press 'ENTER' to continue
+
+	Select search options:
+		* Press 1 to search Zendesk
+		* Press 2 to view a list of searcheable fields
+		* Type 'quit' to exist
+
+> Select 1) Users or 2) Tickets: Enter search term: Enter search value: Searching users for _id with a value of 2
+_id        = 2
+name       = Cross Barlow
+created_at = 2016-06-23T10:31:39-10:00
+verified   = true
+Tickets    = - A Catastrophe in Bermuda
+             - A Problem in Svalbard and Jan Mayen Islands
+
+> Goodbye!

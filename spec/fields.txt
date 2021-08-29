@@ -1,0 +1,11 @@
+Welcome to Zendesk search
+Type 'quit' to exit at any time. Press 'ENTER' to continue
+
+	Select search options:
+		* Press 1 to search Zendesk
+		* Press 2 to view a list of searcheable fields
+		* Type 'quit' to exist
+
+> Search Users with: _id, name, created_at, verified
+Search Tickets with: _id, created_at, type, subject, assignee_id, tags
+> Goodbye!

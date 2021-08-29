@@ -1,0 +1,121 @@
+Welcome to Zendesk search
+Type 'quit' to exit at any time. Press 'ENTER' to continue
+
+	Select search options:
+		* Press 1 to search Zendesk
+		* Press 2 to view a list of searcheable fields
+		* Type 'quit' to exist
+
+> Select 1) Users or 2) Tickets: Enter search term: Enter search value: Searching users for tags with a value of Texas
+_id         = 87db32c5-76a3-4069-954c-7d59c6c21de0
+created_at  = 2016-07-06T11:16:50-10:00
+type        = problem
+subject     = A Problem in Morocco
+assignee_id = 7
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Lou Schmidt
+
+_id         = fc5a8a70-3814-4b17-a6e9-583936fca909
+created_at  = 2016-07-08T07:57:15-10:00
+type        = problem
+subject     = A Nuisance in Kiribati
+assignee_id = 19
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Francis Rodrigüez
+
+_id         = bb6b2b5b-d58e-4c05-99a8-0d7cf2792acb
+created_at  = 2016-02-08T05:30:09-11:00
+type        = incident
+subject     = A Catastrophe in Cook Islands
+assignee_id = 69
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Velasquez Cameron
+
+_id         = 60d6b68c-51e9-439f-aacb-c2f36f1fa2f5
+created_at  = 2016-07-25T06:11:54-10:00
+type        = incident
+subject     = A Catastrophe in Guam
+assignee_id = 15
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Jeri Estrada
+
+_id         = 54f60187-6064-492a-9a4c-37fc21b4e300
+created_at  = 2016-02-11T05:36:16-11:00
+type        = problem
+subject     = A Problem in Barbados
+assignee_id = 20
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Lee Davidson
+
+_id         = c22aaced-7faa-4b5c-99e5-1a209500ff16
+created_at  = 2016-07-11T08:52:25-10:00
+type        = incident
+subject     = A Problem in Ethiopia
+assignee_id = 55
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Thelma Wong
+
+_id         = 6e77bbf1-5fc7-4f41-aeb1-74f8730f974b
+created_at  = 2016-06-24T07:57:38-10:00
+type        = problem
+subject     = A Problem in Guatemala
+assignee_id = 26
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Rosa Wright
+
+_id         = 5315f036-2bdd-4d6e-a356-fc6759c74351
+created_at  = 2016-02-21T10:52:48-11:00
+type        = problem
+subject     = A Catastrophe in Central African Republic
+assignee_id = 14
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Shepherd Joseph
+
+_id         = c45893d9-17c2-43b0-8800-a5f8201aff93
+created_at  = 2016-05-08T05:42:21-10:00
+type        = problem
+subject     = A Nuisance in Bhutan
+assignee_id = 26
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Rosa Wright
+
+_id         = d8cf9df6-946c-4371-9e3d-50b83fa4238e
+created_at  = 2016-04-03T09:49:35-10:00
+type        = question
+subject     = A Catastrophe in Cuba
+assignee_id = 59
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Key Mendez
+
+_id         = dcb9143e-cb17-49ea-a9be-abf6989bd2d4
+created_at  = 2016-06-10T05:46:41-10:00
+type        = task
+subject     = A Problem in Svalbard and Jan Mayen Islands
+assignee_id = 2
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Cross Barlow
+
+_id         = 10378588-afec-443e-a0a5-6c707eb1c2e4
+created_at  = 2016-03-28T02:19:47-11:00
+type        = problem
+subject     = A Catastrophe in Tuvalu
+assignee_id = 61
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+Users       = - Clemons Mcconnell
+
+_id         = bb8b1829-25d9-4534-83a2-c4e6086d76d4
+created_at  = 2016-03-20T11:08:16-11:00
+type        = task
+subject     = A Problem in Japan
+assignee_id = 42
+tags        = ["Texas", "Nevada", "Oregon", "Arizona"]
+Users       = - Sampson Castillo
+
+_id         = 4d0ab657-4c59-43e4-aab3-162753043a59
+created_at  = 2016-01-25T03:59:49-11:00
+type        = question
+subject     = A Problem in Algeria
+assignee_id = 555
+tags        = ["Minnesota", "New Jersey", "Texas", "Nevada"]
+
+> Goodbye!

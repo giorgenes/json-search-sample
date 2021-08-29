@@ -13,48 +13,19 @@ describe CLI do
   let(:stdout) { StringIO.new }
 
   # Some useful data
-  let(:workshop) { { "_id" => "10", "name" => "Workshop Bar" } }
-  let(:whitehart) { { "_id" => "11", "name" => "Whitehart Bar" } }
-  let(:mojito) { { "title" => "Mojito", "bar_id" => "10" } }
-  let(:whiterussian) { { "title" => "White Russian", "bar_id" => "10" } }
-  let(:ginandtonic) { { "title" => "Gin and Tonic", "bar_id" => "11" } }
+  let(:workshop) { {"_id" => "10", "name" => "Workshop Bar"} }
+  let(:whitehart) { {"_id" => "11", "name" => "Whitehart Bar"} }
+  let(:mojito) { {"title" => "Mojito", "bar_id" => "10"} }
+  let(:whiterussian) { {"title" => "White Russian", "bar_id" => "10"} }
+  let(:ginandtonic) { {"title" => "Gin and Tonic", "bar_id" => "11"} }
 
   let(:relations) do
     {
-      "Bars" => { "_id" => "Cocktails.bar_id" },
-      "Cocktails" => { "bar_id" => "Bars._id" },
+      "Bars" => {"_id" => "Cocktails.bar_id"},
+      "Cocktails" => {"bar_id" => "Bars._id"}
     }
   end
   let(:cli) { CLI.new(input: stdin, output: stdout, databases: databases, relations: relations) }
-
-  shared_examples "finds document" do
-    before do
-      docs.each do |doc|
-        expect(relation).to receive(:find_by).with(foreign_key, doc[key]).and_return(related_docs)
-      end
-    end
-
-    it "shows the search" do
-      expect(subject).to include("Searching users for #{search_field} with a value of #{search_value}")
-    end
-
-    it "finds the documents" do
-      docs.each do |doc|
-        doc.each_pair do |k, v|
-          expect(subject).to match("#{k}.+=.+#{v}")
-        end
-      end
-    end
-
-    context "with a related document" do
-      let(:related_docs) { [related_doc] }
-      let(:docs) { [doc] }
-
-      it "shows the related documents" do
-        expect(subject).to match(related_doc["name"])
-      end
-    end
-  end
 
   shared_examples "database search" do |db_choice, search_term, search_value|
     let(:input) { "1\n#{db_choice}\n#{search_term}\n#{search_value}\n" }
@@ -86,61 +57,6 @@ describe CLI do
       end
     end
   end
-
-  # shared_examples "database search" do |option|
-  #   let(:input) { "1\n#{db_choice}\n#{search_term}\n#{search_value}\n"}
-
-  #         let(:docs) { [] }
-  #         let(:related_docs) { [] }
-  #         let(:search_field) { "tags" }
-  #         let(:input) { super() + "#{search_field}\n" }
-
-  #         context "with a valid value" do
-  #           let(:search_value) { key }
-  #           let(:input) { super() + "#{search_value}\n" }
-  #           let(:doc) { { "_id" => key } }
-  #           let(:search_field) { "_id" }
-
-  #           before do
-  #             expect(db).to receive(:find_by).with(search_term, search_value).and_return(expected_docs)
-  #           end
-
-  #           context "with a single document" do
-  #             let(:docs) { [doc] }
-
-  #             it_behaves_like "finds document"
-  #           end
-
-  #           context "with an empty search_value" do
-  #             let(:search_field) { "tags" }
-  #             let(:search_value) { "" }
-  #             let(:docs) { [doc] }
-
-  #             it_behaves_like "finds document"
-  #           end
-
-  #           context "with multiple documents" do
-  #             let(:search_field) { "tags" }
-  #             let(:search_value) { "Melbourne" }
-  #             let(:doc1) { { _id: "71" } }
-  #             let(:doc2) { { _id: "72" } }
-  #             let(:docs) { [doc1, doc2] }
-
-  #             it_behaves_like "finds document"
-  #           end
-
-  #           context "with no documents" do
-  #             let(:search_value) { "notfound" }
-
-  #             it "shows not found" do
-  #               expect(subject).to include("No documents found")
-  #             end
-  #           end
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
 
   describe "#execute" do
     subject do
@@ -271,6 +187,5 @@ describe CLI do
     end
 
     # TODO: test general output
-
   end
 end

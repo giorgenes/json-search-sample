@@ -42,6 +42,7 @@ class CLI
       else
         docs.each do |doc|
           print_doc(db, doc)
+          @out.puts
         end
       end
     when "2"
@@ -55,7 +56,7 @@ class CLI
     @databases.find { |db| db.name == name }
   end
 
-  def find_and_print_related(db, doc)
+  def find_and_print_related(db, doc, max_key_size)
     rel = @relations[db.name]
     return unless rel
 
@@ -71,9 +72,13 @@ class CLI
     related_docs = related_db.find_by(field, doc[key])
 
     if related_docs.any?
-      @out.puts "#{related_db.name}: "
-      related_docs.each do |related_doc|
-        @out.puts "\t-> #{related_doc[related_db.display_field]}"
+      related_docs.each_with_index do |related_doc, index|
+        v = related_doc[related_db.display_field]
+        if index == 0
+          @out.puts("%-*s = - #{v}" % [max_key_size, related_db.name])
+        else
+          @out.puts("%-*s   - #{v}" % [max_key_size, ""])
+        end
       end
     end
   end
@@ -84,7 +89,7 @@ class CLI
       @out.puts("%-*s = #{v}" % [max_key_size, k])
     end
 
-    find_and_print_related(db, doc)
+    find_and_print_related(db, doc, max_key_size)
   end
 
   def show_greeting
