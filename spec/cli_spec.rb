@@ -79,6 +79,8 @@ describe CLI do
     end
 
     it "shows the related documents" do
+      subject
+
       expected_related_docs.each do |related_doc|
         expect(subject).to match(related_doc[relation.display_field])
       end
@@ -204,13 +206,71 @@ describe CLI do
       end
     end
 
-    it_behaves_like "database search", "1", "_id", "10" do
+    context "searching the bars database" do
       let(:db) { bars }
       let(:key) { "_id" }
       let(:relation) { cocktails }
       let(:foreign_key) { "bar_id" }
-      let(:expected_docs) { [whitehart] }
-      let(:expected_related_docs) { [whiterussian] }
+      let(:expected_related_docs) { [] }
+
+      context "with a single doc" do
+        let(:expected_docs) { [whitehart] }
+
+        it_behaves_like "database search", "1", "_id", "10"
+
+        context "with a related document" do
+          let(:expected_related_docs) { [whiterussian] }
+
+          it_behaves_like "database search", "1", "_id", "10"
+        end
+
+        context "with multiple related document" do
+          let(:expected_related_docs) { [whiterussian, mojito] }
+
+          it_behaves_like "database search", "1", "_id", "10"
+        end
+      end
+
+      context "with multiple docs" do
+        let(:expected_docs) { [whitehart, workshop] }
+
+        it_behaves_like "database search", "1", "tags", "Melbourne"
+      end
     end
+
+    context "searching the cocktails database" do
+      let(:db) { cocktails }
+      let(:key) { "bar_id" }
+      let(:relation) { bars }
+      let(:foreign_key) { "_id" }
+      let(:expected_related_docs) { [] }
+
+      context "with a single doc" do
+        let(:expected_docs) { [mojito] }
+
+        it_behaves_like "database search", "2", "_id", "10"
+
+        context "with a related document" do
+          let(:expected_related_docs) { [workshop] }
+
+          it_behaves_like "database search", "2", "_id", "10"
+        end
+
+        context "with multiple related document" do
+          let(:expected_related_docs) { [workshop, whitehart] }
+
+          it_behaves_like "database search", "2", "_id", "10"
+        end
+      end
+
+      context "with multiple docs" do
+        let(:expected_docs) { [mojito, whiterussian] }
+
+        it_behaves_like "database search", "2", "tags", "Sour"
+      end
+    end
+
+    # test general output
+
   end
 end
