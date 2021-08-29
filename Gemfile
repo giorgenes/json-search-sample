@@ -9,5 +9,6 @@ group :test, :development do
     gem 'rufo'
     gem 'reek'
     gem 'standardrb'
+    gem 'byebug'
 end
 
