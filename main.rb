@@ -1,4 +1,4 @@
-#!/bin/env ruby
+#!/usr/bin/env ruby
 
 require "./lib/cli"
 require "./lib/json_database"
