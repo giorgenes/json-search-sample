@@ -70,7 +70,7 @@ class CLI
     related_docs = related_db.find_by(field, doc[key])
 
     if related_docs.any?
-      @out.puts "#{related_db}: #{related_docs.map { |rd| rd["name"] }.join(", ")}"
+      @out.puts "#{related_db}: #{related_docs.map { |rd| rd[related_db.display_field] }.join(", ")}"
     end
   end
 

@@ -5,12 +5,20 @@ require "json_database"
 require "rspec"
 
 describe CLI do
-  let(:bars) { JsonDatabase.new("Bars") }
-  let(:cocktails) { JsonDatabase.new("Cocktails") }
+  let(:bars) { JsonDatabase.new(name: "Bars", display_field: "name") }
+  let(:cocktails) { JsonDatabase.new(name: "Cocktails", display_field: "title") }
   let(:databases) { [bars, cocktails] }
   let(:input) { "" }
   let(:stdin) { StringIO.new(input) }
   let(:stdout) { StringIO.new }
+
+  # Some useful data
+  let(:workshop) { { "_id" => "10", "name" => "Workshop Bar" } }
+  let(:whitehart) { { "_id" => "11", "name" => "Whitehart Bar" } }
+  let(:mojito) { { "title" => "Mojito", "bar_id" => "10" } }
+  let(:whiterussian) { { "title" => "White Russian", "bar_id" => "10" } }
+  let(:ginandtonic) { { "title" => "Gin and Tonic", "bar_id" => "11" } }
+
   let(:relations) do
     {
       "Bars" => { "_id" => "Cocktails.bar_id" },
@@ -48,77 +56,89 @@ describe CLI do
     end
   end
 
-  shared_examples "database search" do |option|
-    context "with search option (1)" do
-      let(:input) { "1\n" }
+  shared_examples "database search" do |db_choice, search_term, search_value|
+    let(:input) { "1\n#{db_choice}\n#{search_term}\n#{search_value}\n" }
 
-      it 'asks for "table" name' do
-        expect(subject).to include("Select 1) Bars or 2) Cocktails")
+    before do
+      expect(db).to receive(:find_by).with(search_term, search_value).and_return(expected_docs)
+      expected_docs.each do |doc|
+        expect(relation).to receive(:find_by).with(foreign_key, doc[key]).and_return(expected_related_docs)
       end
+    end
 
-      context "with table options" do
-        let(:input) { super() + "#{option}\n" }
+    it "shows the search" do
+      expect(subject).to include("Searching users for #{search_term} with a value of #{search_value}")
+    end
 
-        it "asks for search term" do
-          expect(subject).to include("Enter search term")
-        end
-
-        context "with search term" do
-          let(:docs) { [] }
-          let(:related_docs) { [] }
-          let(:search_field) { "tags" }
-          let(:input) { super() + "#{search_field}\n" }
-
-          it "asks for search value" do
-            expect(subject).to include("Enter search value")
-          end
-
-          context "with a valid value" do
-            let(:search_value) { key }
-            let(:input) { super() + "#{search_value}\n" }
-            let(:doc) { { "_id" => key } }
-            let(:search_field) { "_id" }
-
-            before do
-              expect(db).to receive(:find_by).with(search_field, search_value).and_return(docs)
-            end
-
-            context "with a single document" do
-              let(:docs) { [doc] }
-
-              it_behaves_like "finds document"
-            end
-
-            context "with an empty search_value" do
-              let(:search_field) { "tags" }
-              let(:search_value) { "" }
-              let(:docs) { [doc] }
-
-              it_behaves_like "finds document"
-            end
-
-            context "with multiple documents" do
-              let(:search_field) { "tags" }
-              let(:search_value) { "Melbourne" }
-              let(:doc1) { { _id: "71" } }
-              let(:doc2) { { _id: "72" } }
-              let(:docs) { [doc1, doc2] }
-
-              it_behaves_like "finds document"
-            end
-
-            context "with no documents" do
-              let(:search_value) { "notfound" }
-
-              it "shows not found" do
-                expect(subject).to include("No documents found")
-              end
-            end
-          end
+    it "finds the documents" do
+      expected_docs.each do |doc|
+        doc.each_pair do |k, v|
+          expect(subject).to match("#{k}.+=.+#{v}")
         end
       end
     end
+
+    it "shows the related documents" do
+      expected_related_docs.each do |related_doc|
+        expect(subject).to match(related_doc[relation.display_field])
+      end
+    end
   end
+
+  # shared_examples "database search" do |option|
+  #   let(:input) { "1\n#{db_choice}\n#{search_term}\n#{search_value}\n"}
+
+  #         let(:docs) { [] }
+  #         let(:related_docs) { [] }
+  #         let(:search_field) { "tags" }
+  #         let(:input) { super() + "#{search_field}\n" }
+
+  #         context "with a valid value" do
+  #           let(:search_value) { key }
+  #           let(:input) { super() + "#{search_value}\n" }
+  #           let(:doc) { { "_id" => key } }
+  #           let(:search_field) { "_id" }
+
+  #           before do
+  #             expect(db).to receive(:find_by).with(search_term, search_value).and_return(expected_docs)
+  #           end
+
+  #           context "with a single document" do
+  #             let(:docs) { [doc] }
+
+  #             it_behaves_like "finds document"
+  #           end
+
+  #           context "with an empty search_value" do
+  #             let(:search_field) { "tags" }
+  #             let(:search_value) { "" }
+  #             let(:docs) { [doc] }
+
+  #             it_behaves_like "finds document"
+  #           end
+
+  #           context "with multiple documents" do
+  #             let(:search_field) { "tags" }
+  #             let(:search_value) { "Melbourne" }
+  #             let(:doc1) { { _id: "71" } }
+  #             let(:doc2) { { _id: "72" } }
+  #             let(:docs) { [doc1, doc2] }
+
+  #             it_behaves_like "finds document"
+  #           end
+
+  #           context "with no documents" do
+  #             let(:search_value) { "notfound" }
+
+  #             it "shows not found" do
+  #               expect(subject).to include("No documents found")
+  #             end
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
   describe "#execute" do
     subject do
@@ -128,7 +148,7 @@ describe CLI do
 
     before do
       allow(bars).to receive(:fields) { %w[_id name tags] }
-      allow(cocktails).to receive(:fields) { %w[_id name tags base] }
+      allow(cocktails).to receive(:fields) { %w[_id title tags] }
     end
 
     it "displays the initial prompt" do
@@ -151,12 +171,28 @@ describe CLI do
       end
     end
 
-    it_behaves_like "database search", 1 do
-      let(:db) { bars }
-      let(:key) { "_id" }
-      let(:relation) { cocktails }
-      let(:foreign_key) { "bar_id" }
-      let(:related_doc) { { "name" => "white russian", "bar_id" => "71" } }
+    context "with search option (1)" do
+      let(:input) { "1\n" }
+
+      it 'asks for "table" name' do
+        expect(subject).to include("Select 1) Bars or 2) Cocktails")
+      end
+
+      context "with table options" do
+        let(:input) { super() + "1\n" }
+
+        it "asks for search term" do
+          expect(subject).to include("Enter search term")
+        end
+
+        context "with search term" do
+          let(:input) { super() + "tags\n" }
+
+          it "asks for search value" do
+            expect(subject).to include("Enter search value")
+          end
+        end
+      end
     end
 
     context "with fields option (2)" do
@@ -164,8 +200,17 @@ describe CLI do
 
       it "shows the json fields" do
         expect(subject).to include("Search #{bars.name} with: _id, name, tags")
-        expect(subject).to include("Search #{cocktails.name} with: _id, name, tags, base")
+        expect(subject).to include("Search #{cocktails.name} with: _id, title, tags")
       end
+    end
+
+    it_behaves_like "database search", "1", "_id", "10" do
+      let(:db) { bars }
+      let(:key) { "_id" }
+      let(:relation) { cocktails }
+      let(:foreign_key) { "bar_id" }
+      let(:expected_docs) { [whitehart] }
+      let(:expected_related_docs) { [whiterussian] }
     end
   end
 end
