@@ -19,6 +19,7 @@ class CLI
         handle_cmd(cmd)
       end
     rescue UserQuit => e
+    rescue Interrupt
     end
 
     @out.puts "Goodbye!"
