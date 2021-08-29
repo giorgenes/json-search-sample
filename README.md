@@ -13,6 +13,15 @@ using your github account (it's free).
 
 To run, simply type `./main.rb` on the terminal (TIP: There's already a tab running the CLI that you can simply jump in right away).
 
+## Running from Docker
+
+Build directly from github then run with the commands below:
+
+```
+docker build -t jsonsearch https://github.com/giorgenes/json-search-sample.git
+docker run -ti jsonsearch
+```
+
 ## Running Locally
 
 The CLI application is built on ruby `2.7.3`. To run, make sure you have ruby installed and run the following commands to setup:
